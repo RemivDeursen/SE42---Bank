@@ -1,2 +1,6 @@
-bank\domain\AccountTest.class
+bank\domain\ChangeAfterPersistTest.class
+bank\domain\FlushingTest.class
+bank\domain\MergeTest.class
+bank\domain\AccountNumberTest.class
+bank\domain\RollbackTest.class
 util\DatabaseCleaner.class
