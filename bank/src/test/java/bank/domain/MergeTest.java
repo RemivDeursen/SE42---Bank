@@ -10,7 +10,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
 
 public class MergeTest {
 
@@ -68,7 +67,7 @@ public class MergeTest {
         Account acc2 = em.merge(acc);
         assertFalse(em.contains(acc)); // verklaar
         assertTrue(em.contains(acc2)); // verklaar
-        assertNotEquals(acc,acc2);  //verklaar
+        assertNotSame(acc,acc2);  //verklaar
         acc2.setBalance(balance3b);
         acc.setBalance(balance3c);
         em.getTransaction().commit() ;
