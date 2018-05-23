@@ -12,7 +12,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
 
 public class MergeTest {
 
