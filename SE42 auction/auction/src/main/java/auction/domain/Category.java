@@ -1,10 +1,17 @@
 package auction.domain;
 
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Entity
 public class Category {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     private String description;
 
-    private Category() {
+    public Category() {
         description = "undefined";
     }
 

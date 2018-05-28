@@ -1,12 +1,14 @@
-E:\Git\SE42---Bank\SE42 auction\auction\src\main\java\auction\domain\Item.java
-E:\Git\SE42---Bank\SE42 auction\auction\src\main\java\auction\service\RegistrationMgr.java
-E:\Git\SE42---Bank\SE42 auction\auction\src\main\java\auction\dao\ItemDAO.java
-E:\Git\SE42---Bank\SE42 auction\auction\src\main\java\auction\dao\UserDAO.java
-E:\Git\SE42---Bank\SE42 auction\auction\src\main\java\auction\domain\Bid.java
-E:\Git\SE42---Bank\SE42 auction\auction\src\main\java\auction\domain\User.java
-E:\Git\SE42---Bank\SE42 auction\auction\src\main\java\auction\service\AuctionMgr.java
-E:\Git\SE42---Bank\SE42 auction\auction\src\main\java\auction\dao\UserDAOCollectionImpl.java
-E:\Git\SE42---Bank\SE42 auction\auction\src\main\java\auction\service\SellerMgr.java
-E:\Git\SE42---Bank\SE42 auction\auction\src\main\java\nl\fontys\util\FontysTime.java
-E:\Git\SE42---Bank\SE42 auction\auction\src\main\java\nl\fontys\util\Money.java
-E:\Git\SE42---Bank\SE42 auction\auction\src\main\java\auction\domain\Category.java
+C:\Users\Remi van Deursen\Documents\GitHub\SE42---Bank\SE42 auction\auction\src\main\java\auction\dao\ItemDAOJPAImpl.java
+C:\Users\Remi van Deursen\Documents\GitHub\SE42---Bank\SE42 auction\auction\src\main\java\auction\service\AuctionMgr.java
+C:\Users\Remi van Deursen\Documents\GitHub\SE42---Bank\SE42 auction\auction\src\main\java\auction\domain\Bid.java
+C:\Users\Remi van Deursen\Documents\GitHub\SE42---Bank\SE42 auction\auction\src\main\java\auction\dao\UserDAOJPAImpl.java
+C:\Users\Remi van Deursen\Documents\GitHub\SE42---Bank\SE42 auction\auction\src\main\java\auction\service\SellerMgr.java
+C:\Users\Remi van Deursen\Documents\GitHub\SE42---Bank\SE42 auction\auction\src\main\java\nl\fontys\util\FontysTime.java
+C:\Users\Remi van Deursen\Documents\GitHub\SE42---Bank\SE42 auction\auction\src\main\java\nl\fontys\util\Money.java
+C:\Users\Remi van Deursen\Documents\GitHub\SE42---Bank\SE42 auction\auction\src\main\java\auction\domain\Category.java
+C:\Users\Remi van Deursen\Documents\GitHub\SE42---Bank\SE42 auction\auction\src\main\java\auction\dao\UserDAO.java
+C:\Users\Remi van Deursen\Documents\GitHub\SE42---Bank\SE42 auction\auction\src\main\java\auction\dao\UserDAOCollectionImpl.java
+C:\Users\Remi van Deursen\Documents\GitHub\SE42---Bank\SE42 auction\auction\src\main\java\auction\domain\Item.java
+C:\Users\Remi van Deursen\Documents\GitHub\SE42---Bank\SE42 auction\auction\src\main\java\auction\service\RegistrationMgr.java
+C:\Users\Remi van Deursen\Documents\GitHub\SE42---Bank\SE42 auction\auction\src\main\java\auction\dao\ItemDAO.java
+C:\Users\Remi van Deursen\Documents\GitHub\SE42---Bank\SE42 auction\auction\src\main\java\auction\domain\User.java

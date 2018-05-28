@@ -4,9 +4,11 @@ auction\service\AuctionMgr.class
 auction\domain\Category.class
 auction\service\SellerMgr.class
 auction\dao\UserDAOCollectionImpl.class
+auction\dao\UserDAOJPAImpl.class
 auction\dao\ItemDAO.class
 auction\domain\Bid.class
 auction\dao\UserDAO.class
 nl\fontys\util\Money.class
+auction\dao\ItemDAOJPAImpl.class
 auction\domain\User.class
 nl\fontys\util\FontysTime.class

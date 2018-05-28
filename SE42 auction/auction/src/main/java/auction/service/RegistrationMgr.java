@@ -7,6 +7,9 @@ import auction.domain.User;
 import auction.dao.UserDAOCollectionImpl;
 import auction.dao.UserDAO;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+
 public class RegistrationMgr {
 
     private UserDAO userDAO;

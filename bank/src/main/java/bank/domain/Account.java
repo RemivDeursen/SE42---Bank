@@ -9,7 +9,7 @@ import javax.persistence.*;
     @NamedQuery(name = "Account.count", query = "select count(a) from Account as a"),
     @NamedQuery(name = "Account.findByAccountNr", query = "select a from Account as a where a.accountNr = :accountNr")
 })
-public class Account implements Serializable {
+public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,18 +1,18 @@
 package auction.dao;
 
+import auction.domain.Item;
 import auction.domain.User;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaQuery;
+import java.util.List;
 
-public class UserDAOJPAImpl implements UserDAO {
+public class ItemDAOJPAImpl implements ItemDAO {
 
     private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("auctionPU");
     private EntityManager em;
 
-    public UserDAOJPAImpl() {
+    public ItemDAOJPAImpl() {
     }
 
     @Override
@@ -20,49 +20,53 @@ public class UserDAOJPAImpl implements UserDAO {
         return findAll().size();
     }
 
-    public void create(User user) {
-        //verbeter punt, EM lokaal aanmaken
+    @Override
+    public void create(Item item) {
         em = emf.createEntityManager();
         em.getTransaction().begin();
-        em.persist(user);
+        em.persist(item);
         em.getTransaction().commit();
         em.close();
     }
 
-    public void edit(User user) {
-        //Implementatie interface bekijken
-        em.merge(user);
+    @Override
+    public void edit(Item item) {
+        em = emf.createEntityManager();
+        em.merge(item);
     }
 
     @Override
-    public List<User> findAll() {
+    public Item find(Long id) {
+        em = emf.createEntityManager();
+        return em.find(Item.class, id);
+    }
+
+    @Override
+    public List<Item> findAll() {
         em = emf.createEntityManager();
         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
         cq.select(cq.from(User.class));
         return em.createQuery(cq).getResultList();
     }
 
-    public void remove(User user) {
-        em.remove(em.merge(user));
-    }
-
-    public User findByEmail(String email) {
+    @Override
+    public List<Item> findByDescription(String description) {
         em = emf.createEntityManager();
-        Query q = em.createNamedQuery("User.findUserByEmail", User.class);
-        q.setParameter("email", email);
-        System.out.println(q.getFirstResult());
+        Query q = em.createNamedQuery("Item.findByDescription", Item.class);
+        q.setParameter("description", description);
+        System.out.println(q.getResultList());
         try {
-            User user = (User) q.getSingleResult();
-            return user;
+            List<Item> items = q.getResultList();
+            return items;
         }
         catch (NoResultException e){
             return null;
         }
     }
 
-    public User find(Long id) {
+    @Override
+    public void remove(Item item) {
         em = emf.createEntityManager();
-        return em.find(User.class, id);
+        em.remove(em.merge(item));
     }
-
 }

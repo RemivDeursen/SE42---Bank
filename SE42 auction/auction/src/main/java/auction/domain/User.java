@@ -1,12 +1,17 @@
 package auction.domain;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 
+@Entity
+@NamedQueries({
+        @NamedQuery(name = "User.getAll", query = "select a from User as a"),
+        @NamedQuery(name = "User.count", query = "select count(a) from User as a"),
+        @NamedQuery(name = "User.findUserByEmail", query = "select a from User as a where a.email = :email")
+})
 public class User {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column (unique = true)
@@ -15,6 +20,9 @@ public class User {
     public User(String email) {
         this.email = email;
 
+    }
+
+    public User() {
     }
 
     public long getId() {
@@ -31,5 +39,13 @@ public class User {
 
     public String getEmail() {
         return email;
+    }
+
+    public boolean equals(Object obj) {
+        final User other = (User) obj;
+        if (this.email != other.email) {
+            return false;
+        }
+        return true;
     }
 }

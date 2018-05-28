@@ -1,0 +1,3 @@
+util\DatabaseCleaner.class
+auction\service\AuctionMgrTest.class
+auction\service\RegistrationMgrTest.class
