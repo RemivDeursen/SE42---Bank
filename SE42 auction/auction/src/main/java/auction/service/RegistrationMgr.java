@@ -46,7 +46,11 @@ public class RegistrationMgr {
      * e-mailadres of null als zo'n User niet bestaat.
      */
     public User getUser(String email) {
-        return userDAO.findByEmail(email);
+        User user = userDAO.findByEmail(email);
+        if (user != null){
+            return user;
+        }
+        return null;
     }
 
     /**

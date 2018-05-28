@@ -2,15 +2,18 @@ package auction.dao;
 
 import auction.domain.Item;
 import auction.domain.User;
+import nl.fontys.util.DatabaseCleaner;
 
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaQuery;
+import java.sql.SQLException;
 import java.util.List;
 
 public class ItemDAOJPAImpl implements ItemDAO {
 
     private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("auctionPU");
     private EntityManager em;
+    DatabaseCleaner cleaner = new DatabaseCleaner(em);
 
     public ItemDAOJPAImpl() {
     }
@@ -68,5 +71,13 @@ public class ItemDAOJPAImpl implements ItemDAO {
     public void remove(Item item) {
         em = emf.createEntityManager();
         em.remove(em.merge(item));
+    }
+
+    public void clean(){
+        try {
+            cleaner.clean();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

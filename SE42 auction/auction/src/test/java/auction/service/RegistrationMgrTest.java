@@ -18,9 +18,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 public class RegistrationMgrTest {
-    private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("auctionPU");
-    EntityManager em = emf.createEntityManager();
-    DatabaseCleaner cleaner = new DatabaseCleaner(em);
 
     private RegistrationMgr registrationMgr;
 
@@ -31,7 +28,9 @@ public class RegistrationMgrTest {
 
     @After
     public void after() throws SQLException {
-        //Clean database
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("auctionPU");
+        EntityManager em = emf.createEntityManager();
+        DatabaseCleaner cleaner = new DatabaseCleaner(em);
         cleaner.clean();
     }
 

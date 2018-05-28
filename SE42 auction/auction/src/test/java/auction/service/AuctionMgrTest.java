@@ -22,9 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AuctionMgrTest {
-    private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("auctionPU");
-    EntityManager em = emf.createEntityManager();
-    DatabaseCleaner cleaner = new DatabaseCleaner(em);
 
     private AuctionMgr auctionMgr;
     private RegistrationMgr registrationMgr;
@@ -36,12 +33,14 @@ public class AuctionMgrTest {
         auctionMgr = new AuctionMgr();
         sellerMgr = new SellerMgr();
     }
+
     @After
     public void after() throws SQLException {
-        //Clean database
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("auctionPU");
+        EntityManager em = emf.createEntityManager();
+        DatabaseCleaner cleaner = new DatabaseCleaner(em);
         cleaner.clean();
     }
-
     @Test
     public void getItem() {
 

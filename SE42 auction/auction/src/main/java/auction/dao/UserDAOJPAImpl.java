@@ -1,9 +1,12 @@
 package auction.dao;
 
 import auction.domain.User;
+import nl.fontys.util.DatabaseCleaner;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaQuery;
 
@@ -11,6 +14,7 @@ public class UserDAOJPAImpl implements UserDAO {
 
     private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("auctionPU");
     private EntityManager em;
+    DatabaseCleaner cleaner = new DatabaseCleaner(em);
 
     public UserDAOJPAImpl() {
     }
@@ -31,7 +35,12 @@ public class UserDAOJPAImpl implements UserDAO {
 
     public void edit(User user) {
         //Implementatie interface bekijken
-        em.merge(user);
+        try{
+            em.merge(user);
+        }
+        catch (IllegalArgumentException e){
+            e.printStackTrace();
+        }
     }
 
     @Override
