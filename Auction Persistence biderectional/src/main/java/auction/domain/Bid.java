@@ -20,6 +20,7 @@ public class Bid {
     @OneToOne
     private User buyer;
     @OneToOne
+    @JoinColumn(name = "item", nullable = false)
     private Item item;
     private Money amount;
 

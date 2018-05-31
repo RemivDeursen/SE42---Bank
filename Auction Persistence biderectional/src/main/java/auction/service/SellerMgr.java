@@ -24,6 +24,7 @@ public class SellerMgr {
      */
     public Item offerItem(User seller, Category cat, String description) {
         Item item = new Item(seller, cat, description);
+        seller.addItem(item);
         itemDAO.create(item);
         return item;
     }
@@ -40,4 +41,5 @@ public class SellerMgr {
         }
         return true;
     }
+
 }

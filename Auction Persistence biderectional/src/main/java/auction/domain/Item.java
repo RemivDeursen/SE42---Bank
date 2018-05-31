@@ -94,6 +94,10 @@ public class Item implements Comparable {
         return true;
     }
 
+    public void setSeller(User seller) {
+        this.seller = seller;
+    }
+
     public int hashCode() {
         return (int) (id * seller.hashCode() * category.hashCode() * description.hashCode());
     }

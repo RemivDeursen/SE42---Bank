@@ -57,9 +57,16 @@ public class User {
         return offeredItems.size();
     }
 
-    private void addItem(Item item) {
-
+    public void addItem(Item item) {
+        offeredItems.add(item);
+        item.setSeller(this);
     }
+
+    public void setOfferedItems(Set<Item> offeredItems) {
+        this.offeredItems = offeredItems;
+    }
+
+
 
     public boolean equals(Object obj) {
         final User other = (User) obj;
