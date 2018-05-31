@@ -44,10 +44,13 @@ public class ItemsFromSellerTest {
         Category cat = new Category("cat2");
         Item item1 = sellerMgr.offerItem(user1, cat, omsch1);
 
-       
         // test number of items belonging to user1
-        assertEquals(0, user1.numberOfOfferedItems());
-        assertEquals(1, user1.numberOfOfferedItems());
+        assertEquals(1, user1.numberOfOfferedItems()); // TRUE
+
+        /*
+         * because sellerMgr.offerItem(user1, cat, omsch1); put one item in the database.
+         * user1.numberOfOfferedItems(); gets all the items of the user. In this case is that 1.
+         */
         
         /*
          *  expected: which one of te above two assertions do you expect to be true?
@@ -68,8 +71,12 @@ public class ItemsFromSellerTest {
         assertEquals(2, user3.numberOfOfferedItems());
 
         User userWithItem = item2.getSeller();
-        assertEquals(2, userWithItem.numberOfOfferedItems());
-        assertEquals(3, userWithItem.numberOfOfferedItems());
+        assertEquals(2, userWithItem.numberOfOfferedItems()); //TRUE
+
+        /*
+         * because userWithItem equals the seller of item2. Item2 has 2 items.
+         */
+
         /*
          *  expected: which one of te above two assertions do you expect to be true?
          *  QUESTION:
@@ -77,9 +84,11 @@ public class ItemsFromSellerTest {
          */
         
         
-        assertNotSame(user3, userWithItem);
         assertEquals(user3, userWithItem);
 
+        /**
+         * The first one was true because they were referencing to the same object, the equals will ofcourse succeed because they are the same.
+         */
     }
 
     @Test
@@ -106,8 +115,11 @@ public class ItemsFromSellerTest {
 
         // Explain difference in above two tests for te iterator of 'same' user
 
-        
-        
+        /**
+         * The second tests goes further with te created data from the first test.
+         */
+
+
         User user20 = registrationMgr.getUser(email);
         Item item20 = sellerMgr.offerItem(user20, cat, omsch2);
         Iterator<Item> it20 = user20.getOfferedItems();
