@@ -7,6 +7,7 @@ import nl.fontys.util.DatabaseCleaner;
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaQuery;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemDAOJPAImpl implements ItemDAO {
@@ -63,7 +64,7 @@ public class ItemDAOJPAImpl implements ItemDAO {
             return items;
         }
         catch (NoResultException e){
-            return null;
+            return new ArrayList<Item>();
         }
     }
 

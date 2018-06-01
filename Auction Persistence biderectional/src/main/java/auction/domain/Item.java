@@ -21,7 +21,7 @@ public class Item implements Comparable {
     @ManyToOne
     private User seller;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.)
     @JoinColumn(name = "category")
     private Category category;
 
@@ -35,6 +35,7 @@ public class Item implements Comparable {
         this.seller = seller;
         this.category = category;
         this.description = description;
+        seller.addItem(this);
     }
 
     public Item() {
@@ -64,7 +65,7 @@ public class Item implements Comparable {
         if (highest != null && highest.getAmount().compareTo(amount) >= 0) {
             return null;
         }
-        highest = new Bid(buyer, amount);
+        highest = new Bid(buyer, amount, this);
         return highest;
     }
 

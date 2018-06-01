@@ -22,14 +22,20 @@ public class Bid {
     @OneToOne
     @JoinColumn(name = "item", nullable = false)
     private Item item;
+    @Embedded
     private Money amount;
 
-    public Bid(User buyer, Money amount) {
+    public Bid(User buyer, Money amount, Item item) {
         this.buyer = buyer;
         this.amount = amount;
+        this.item = item;
     }
 
     public Bid() {
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
     }
 
     public FontysTime getTime() {
