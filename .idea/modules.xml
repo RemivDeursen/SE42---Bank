@@ -3,7 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/SE42---Bank.iml" filepath="$PROJECT_DIR$/.idea/SE42---Bank.iml" />
-      <module fileurl="file://$PROJECT_DIR$/SE42 auction/auction/auction.iml" filepath="$PROJECT_DIR$/SE42 auction/auction/auction.iml" />
+      <module fileurl="file://$PROJECT_DIR$/auctionServer/auction.iml" filepath="$PROJECT_DIR$/auctionServer/auction.iml" />
+      <module fileurl="file://$PROJECT_DIR$/auctionClient/auctionClient.iml" filepath="$PROJECT_DIR$/auctionClient/auctionClient.iml" />
     </modules>
   </component>
 </project>
