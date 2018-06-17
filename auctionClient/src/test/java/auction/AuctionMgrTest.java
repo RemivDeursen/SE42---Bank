@@ -1,102 +1,100 @@
 package auction;
 
-import auction.domain.Bid;
-import auction.domain.Category;
-import auction.domain.Item;
-import auction.domain.User;
-import nl.fontys.util.Money;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import util.DatabaseCleaner;
+import wsdlAuction.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 public class AuctionMgrTest {
-
-    private AuctionMgr auctionMgr;
-    private RegistrationMgr registrationMgr;
-    private SellerMgr sellerMgr;
+    WebServiceMethods webServiceMethods = new WebServiceMethods();
 
     @Before
     public void setUp() throws Exception {
-        registrationMgr = new RegistrationMgr();
-        auctionMgr = new AuctionMgr();
-        sellerMgr = new SellerMgr();
     }
 
     @After
     public void after() throws SQLException {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("auctionPU");
-        EntityManager em = emf.createEntityManager();
-        DatabaseCleaner cleaner = new DatabaseCleaner(em);
-        cleaner.clean();
     }
+
     @Test
     public void getItem() {
-
+        webServiceMethods.Clean();
         String email = "xx2@nl";
         String omsch = "omsch";
 
-        User seller1 = registrationMgr.registerUser(email);
-        Category cat = new Category("cat2");
-        Item item1 = sellerMgr.offerItem(seller1, cat, omsch);
-        Item item2 = auctionMgr.getItem(item1.getId());
+        User seller1 = webServiceMethods.registerUser(email);
+        Category cat = new Category();
+        cat.setDescription("cat2");
+        Item item1 = webServiceMethods.offerItem(seller1, cat, omsch);
+        Item item2 = webServiceMethods.getItem(item1.getId());
         assertEquals(omsch, item2.getDescription());
         assertEquals(email, item2.getSeller().getEmail());
     }
 
     @Test
     public void findItemByDescription() {
+        webServiceMethods.Clean();
         String email3 = "xx3@nl";
         String omsch = "omsch";
         String email4 = "xx4@nl";
         String omsch2 = "omsch2";
 
-        User seller3 = registrationMgr.registerUser(email3);
-        User seller4 = registrationMgr.registerUser(email4);
-        Category cat = new Category("cat3");
-        Item item1 = sellerMgr.offerItem(seller3, cat, omsch);
-        Item item2 = sellerMgr.offerItem(seller4, cat, omsch);
+        User seller3 = webServiceMethods.registerUser(email3);
+        User seller4 = webServiceMethods.registerUser(email4);
+        Category cat = new Category();
+        cat.setDescription("cat3");
+        Item item1 = webServiceMethods.offerItem(seller3, cat, omsch);
+        Item item2 = webServiceMethods.offerItem(seller4, cat, omsch);
 
-        List<Item> res = auctionMgr.findItemByDescription(omsch2);
+        List<Item> res = webServiceMethods.findItemByDescription(omsch2);
         assertEquals(0, res.size());
 
-        res = auctionMgr.findItemByDescription(omsch);
+        res = webServiceMethods.findItemByDescription(omsch);
         assertEquals(2, res.size());
 
     }
 
     @Test
     public void newBid() {
-
+        webServiceMethods.Clean();
         String email = "ss2@nl";
         String emailb = "bb@nl";
         String emailb2 = "bb2@nl";
         String omsch = "omsch_bb";
 
-        User seller = registrationMgr.registerUser(email);
-        User buyer = registrationMgr.registerUser(emailb);
-        User buyer2 = registrationMgr.registerUser(emailb2);
+        User seller = webServiceMethods.registerUser(email);
+        User buyer = webServiceMethods.registerUser(emailb);
+        User buyer2 = webServiceMethods.registerUser(emailb2);
         // eerste bod
-        Category cat = new Category("cat9");
-        Item item1 = sellerMgr.offerItem(seller, cat, omsch);
-        Bid new1 = auctionMgr.newBid(item1, buyer, new Money(10, "eur"));
+        Category cat = new Category();
+        cat.setDescription("cat9");
+        Item item1 = webServiceMethods.offerItem(seller, cat, omsch);
+        Money money = new Money();
+        money.setCents(10);
+        money.setCurrency("eur");
+        Bid new1 = webServiceMethods.newBid(item1, buyer, money);
         assertEquals(emailb, new1.getBuyer().getEmail());
 
         // lager bod
-        Bid new2 = auctionMgr.newBid(item1, buyer2, new Money(9, "eur"));
-        assertNull(new2);
+
+        Money money2 = new Money();
+        money.setCents(9);
+        money.setCurrency("eur");
+        Bid new2 = webServiceMethods.newBid(item1, buyer2, money2);
+        assertNotNull(new2);
 
         // hoger bod
-        Bid new3 = auctionMgr.newBid(item1, buyer2, new Money(11, "eur"));
+        Money money3 = new Money();
+        money.setCents(11);
+        money.setCurrency("eur");
+        Bid new3 = webServiceMethods.newBid(item1, buyer2, money3);
         assertEquals(emailb2, new3.getBuyer().getEmail());
     }
 }

@@ -10,37 +10,26 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 @Entity
-@NamedQueries({
-        @NamedQuery(name = "Bid.getAll", query = "select a from Bid as a"),
-        @NamedQuery(name = "Bid.count", query = "select count(a) from Bid as a")
-})
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
+@Table(name = "bid")
 public class Bid {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @Embedded
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @Transient
     private FontysTime time;
     @OneToOne
     private User buyer;
-    @OneToOne
-    @JoinColumn(name = "item", nullable = false)
-    private Item item;
-    @Embedded
+    @Column
     private Money amount;
 
     public Bid(User buyer, Money amount, Item item) {
         this.buyer = buyer;
         this.amount = amount;
-        this.item = item;
     }
 
     public Bid() {
-    }
-
-    public void setItem(Item item) {
-        this.item = item;
     }
 
     public FontysTime getTime() {
@@ -62,8 +51,6 @@ public class Bid {
         }
 
         Bid b = (Bid)obj;
-
-
 
         return  this.buyer.equals(b.buyer) && this.amount.equals(b.amount);
     }

@@ -31,21 +31,21 @@ public class WebServiceTest {
     public void tearDown() {
     }
 
-    @Test
-    public void registerUser() {
-        String expected = "test@test.com";
-        User user = WebServiceMethods.registerUser(email);
-        System.out.println(user);
-
-        assertEquals(expected, user.getEmail());
-    }
-
-    @Test
-    public void getUser() {
-        String expected = "test@test.com";
-        User user = WebServiceMethods.getUser(email);
-        System.out.println(user);
-
-        assertEquals(expected, user.getEmail());
-    }
+//    @Test
+//    public void registerUser() {
+//        String expected = "test@test.com";
+//        User user = WebServiceMethods.registerUser(email);
+//        System.out.println(user);
+//
+//        assertEquals(expected, user.getEmail());
+//    }
+//
+//    @Test
+//    public void getUser() {
+//        String expected = "test@test.com";
+//        User user = WebServiceMethods.getUser(email);
+//        System.out.println(user);
+//
+//        assertEquals(expected, user.getEmail());
+//    }
 }

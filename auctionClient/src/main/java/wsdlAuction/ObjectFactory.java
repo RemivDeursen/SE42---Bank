@@ -30,6 +30,9 @@ public class ObjectFactory {
     private final static QName _RegisterUserResponse_QNAME = new QName("http://webService.auction/", "registerUserResponse");
     private final static QName _RegisterUser_QNAME = new QName("http://webService.auction/", "registerUser");
     private final static QName _GetItemResponse_QNAME = new QName("http://webService.auction/", "getItemResponse");
+    private final static QName _Money_QNAME = new QName("http://webService.auction/", "money");
+    private final static QName _CleanUp_QNAME = new QName("http://webService.auction/", "cleanUp");
+    private final static QName _CleanUpResponse_QNAME = new QName("http://webService.auction/", "cleanUpResponse");
     private final static QName _FindItemByDescription_QNAME = new QName("http://webService.auction/", "findItemByDescription");
     private final static QName _OfferItemResponse_QNAME = new QName("http://webService.auction/", "offerItemResponse");
     private final static QName _RevokeItemResponse_QNAME = new QName("http://webService.auction/", "revokeItemResponse");
@@ -131,6 +134,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link CleanUpResponse }
+     * 
+     */
+    public CleanUpResponse createCleanUpResponse() {
+        return new CleanUpResponse();
+    }
+
+    /**
      * Create an instance of {@link FindItemByDescription }
      * 
      */
@@ -152,6 +163,22 @@ public class ObjectFactory {
      */
     public GetItemResponse createGetItemResponse() {
         return new GetItemResponse();
+    }
+
+    /**
+     * Create an instance of {@link Money }
+     * 
+     */
+    public Money createMoney() {
+        return new Money();
+    }
+
+    /**
+     * Create an instance of {@link CleanUp }
+     * 
+     */
+    public CleanUp createCleanUp() {
+        return new CleanUp();
     }
 
     /**
@@ -200,14 +227,6 @@ public class ObjectFactory {
      */
     public FontysTime createFontysTime() {
         return new FontysTime();
-    }
-
-    /**
-     * Create an instance of {@link Money }
-     * 
-     */
-    public Money createMoney() {
-        return new Money();
     }
 
     /**
@@ -262,6 +281,33 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webService.auction/", name = "getItemResponse")
     public JAXBElement<GetItemResponse> createGetItemResponse(GetItemResponse value) {
         return new JAXBElement<GetItemResponse>(_GetItemResponse_QNAME, GetItemResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Money }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webService.auction/", name = "money")
+    public JAXBElement<Money> createMoney(Money value) {
+        return new JAXBElement<Money>(_Money_QNAME, Money.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CleanUp }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webService.auction/", name = "cleanUp")
+    public JAXBElement<CleanUp> createCleanUp(CleanUp value) {
+        return new JAXBElement<CleanUp>(_CleanUp_QNAME, CleanUp.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CleanUpResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webService.auction/", name = "cleanUpResponse")
+    public JAXBElement<CleanUpResponse> createCleanUpResponse(CleanUpResponse value) {
+        return new JAXBElement<CleanUpResponse>(_CleanUpResponse_QNAME, CleanUpResponse.class, null, value);
     }
 
     /**

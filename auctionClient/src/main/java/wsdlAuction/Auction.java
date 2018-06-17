@@ -33,10 +33,10 @@ public interface Auction {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getUser", targetNamespace = "http://webService.auction/", className = "wsdlAuction.GetUser")
-    @ResponseWrapper(localName = "getUserResponse", targetNamespace = "http://webService.auction/", className = "wsdlAuction.GetUserResponse")
-    @Action(input = "http://webService.auction/Auction/getUserRequest", output = "http://webService.auction/Auction/getUserResponse")
-    public User getUser(
+    @RequestWrapper(localName = "registerUser", targetNamespace = "http://webService.auction/", className = "wsdlAuction.RegisterUser")
+    @ResponseWrapper(localName = "registerUserResponse", targetNamespace = "http://webService.auction/", className = "wsdlAuction.RegisterUserResponse")
+    @Action(input = "http://webService.auction/Auction/registerUserRequest", output = "http://webService.auction/Auction/registerUserResponse")
+    public User registerUser(
         @WebParam(name = "arg0", targetNamespace = "")
         String arg0);
 
@@ -48,12 +48,21 @@ public interface Auction {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "registerUser", targetNamespace = "http://webService.auction/", className = "wsdlAuction.RegisterUser")
-    @ResponseWrapper(localName = "registerUserResponse", targetNamespace = "http://webService.auction/", className = "wsdlAuction.RegisterUserResponse")
-    @Action(input = "http://webService.auction/Auction/registerUserRequest", output = "http://webService.auction/Auction/registerUserResponse")
-    public User registerUser(
+    @RequestWrapper(localName = "getUser", targetNamespace = "http://webService.auction/", className = "wsdlAuction.GetUser")
+    @ResponseWrapper(localName = "getUserResponse", targetNamespace = "http://webService.auction/", className = "wsdlAuction.GetUserResponse")
+    @Action(input = "http://webService.auction/Auction/getUserRequest", output = "http://webService.auction/Auction/getUserResponse")
+    public User getUser(
         @WebParam(name = "arg0", targetNamespace = "")
         String arg0);
+
+    /**
+     * 
+     */
+    @WebMethod
+    @RequestWrapper(localName = "cleanUp", targetNamespace = "http://webService.auction/", className = "wsdlAuction.CleanUp")
+    @ResponseWrapper(localName = "cleanUpResponse", targetNamespace = "http://webService.auction/", className = "wsdlAuction.CleanUpResponse")
+    @Action(input = "http://webService.auction/Auction/cleanUpRequest", output = "http://webService.auction/Auction/cleanUpResponse")
+    public void cleanUp();
 
     /**
      * 
@@ -78,6 +87,21 @@ public interface Auction {
 
     /**
      * 
+     * @param arg0
+     * @return
+     *     returns wsdlAuction.Item
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getItem", targetNamespace = "http://webService.auction/", className = "wsdlAuction.GetItem")
+    @ResponseWrapper(localName = "getItemResponse", targetNamespace = "http://webService.auction/", className = "wsdlAuction.GetItemResponse")
+    @Action(input = "http://webService.auction/Auction/getItemRequest", output = "http://webService.auction/Auction/getItemResponse")
+    public Item getItem(
+        @WebParam(name = "arg0", targetNamespace = "")
+        Long arg0);
+
+    /**
+     * 
      * @param arg2
      * @param arg1
      * @param arg0
@@ -96,21 +120,6 @@ public interface Auction {
         Category arg1,
         @WebParam(name = "arg2", targetNamespace = "")
         String arg2);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns wsdlAuction.Item
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getItem", targetNamespace = "http://webService.auction/", className = "wsdlAuction.GetItem")
-    @ResponseWrapper(localName = "getItemResponse", targetNamespace = "http://webService.auction/", className = "wsdlAuction.GetItemResponse")
-    @Action(input = "http://webService.auction/Auction/getItemRequest", output = "http://webService.auction/Auction/getItemResponse")
-    public Item getItem(
-        @WebParam(name = "arg0", targetNamespace = "")
-        Long arg0);
 
     /**
      * 

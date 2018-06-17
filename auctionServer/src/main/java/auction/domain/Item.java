@@ -3,42 +3,51 @@ package auction.domain;
 import nl.fontys.util.Money;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Objects;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "Item.getAll", query = "select a from Item as a"),
-        @NamedQuery(name = "Item.count", query = "select count(a) from Item as a"),
-        @NamedQuery(name = "Item.findByDescription", query = "select a from Item as a where a.description = :description")
+        @NamedQuery(name = "Item.getCount", query = "SELECT COUNT(a) FROM Item AS a"),
+        @NamedQuery(name = "Item.findById", query = "SELECT a FROM Item AS a WHERE a.id = :id"),
+        @NamedQuery(name = "Item.findByDescr", query = "SELECT a FROM Item AS a WHERE a.description = :descr"),
+        @NamedQuery(name = "Item.getAll", query = "SELECT a FROM Item AS a")
 })
 @XmlRootElement
-public class Item implements Comparable {
+@XmlAccessorType(XmlAccessType.FIELD)
+@Table(name = "item")
+public class Item implements Comparable<Item> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    private User seller;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "category")
-    private Category category;
-
-    private String description;
-
     @OneToOne
-    @JoinColumn(name = "highest", nullable = true)
+    private User seller;
+    @OneToOne
+    private Category category;
+    @Column
+    private String description;
+    @OneToOne
     private Bid highest;
 
     public Item(User seller, Category category, String description) {
         this.seller = seller;
         this.category = category;
         this.description = description;
-        seller.addItem(this);
+        //seller.addItem(this);
     }
 
     public Item() {
+    }
+
+    public Bid getHighest() {
+        return highest;
+    }
+
+    public void setHighest(Bid highest) {
+        this.highest = highest;
     }
 
     public Long getId() {
@@ -69,14 +78,7 @@ public class Item implements Comparable {
         return highest;
     }
 
-    public int compareTo(Object arg0) {
-        Item other = (Item) arg0;
-        if (this.getClass() == other.getClass()) return 0;
-        return -1;
-    }
-
-    public boolean equals(Object o) {
-        final Item other = (Item) o;
+    public boolean equals(Item other) {
         if (this.getHighestBid() != other.getHighestBid()) {
             return false;
         }
@@ -95,7 +97,17 @@ public class Item implements Comparable {
         return true;
     }
 
-    public void setSeller(User seller) {
-        this.seller = seller;
+    public int hashCode() {
+        return Objects.hash(id, category, description);
+    }
+
+    @Override
+    public String toString() {
+        return "Id: " + id + " | Seller: " + seller.getEmail();
+    }
+
+    @Override
+    public int compareTo(Item o) {
+        return o.getHighestBid().getAmount().compareTo(this.getHighestBid().getAmount());
     }
 }

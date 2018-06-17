@@ -12,11 +12,10 @@ import java.util.List;
 
 public class ItemDAOJPAImpl implements ItemDAO {
 
-    private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("auctionPU");
     private EntityManager em;
-    DatabaseCleaner cleaner = new DatabaseCleaner(em);
 
-    public ItemDAOJPAImpl() {
+    public ItemDAOJPAImpl(EntityManager em) {
+        this.em = em;
     }
 
     @Override
@@ -25,29 +24,29 @@ public class ItemDAOJPAImpl implements ItemDAO {
     }
 
     @Override
-    public void create(Item item) {
-        em = emf.createEntityManager();
+    public Item create(Item item) {
+        Item temp = null;
         em.getTransaction().begin();
         em.persist(item);
+        temp = em.merge(item);
         em.getTransaction().commit();
-        em.close();
+        return temp;
     }
 
     @Override
     public void edit(Item item) {
-        em = emf.createEntityManager();
+        em.getTransaction().begin();
         em.merge(item);
+        em.getTransaction().commit();
     }
 
     @Override
     public Item find(Long id) {
-        em = emf.createEntityManager();
         return em.find(Item.class, id);
     }
 
     @Override
     public List<Item> findAll() {
-        em = emf.createEntityManager();
         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
         cq.select(cq.from(User.class));
         return em.createQuery(cq).getResultList();
@@ -55,9 +54,8 @@ public class ItemDAOJPAImpl implements ItemDAO {
 
     @Override
     public List<Item> findByDescription(String description) {
-        em = emf.createEntityManager();
-        Query q = em.createNamedQuery("Item.findByDescription", Item.class);
-        q.setParameter("description", description);
+        Query q = em.createNamedQuery("Item.findByDescr", Item.class);
+        q.setParameter("descr", description);
         System.out.println(q.getResultList());
         try {
             List<Item> items = q.getResultList();
@@ -70,15 +68,8 @@ public class ItemDAOJPAImpl implements ItemDAO {
 
     @Override
     public void remove(Item item) {
-        em = emf.createEntityManager();
+        em.getTransaction().begin();
         em.remove(em.merge(item));
-    }
-
-    public void clean(){
-        try {
-            cleaner.clean();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        em.getTransaction().commit();
     }
 }

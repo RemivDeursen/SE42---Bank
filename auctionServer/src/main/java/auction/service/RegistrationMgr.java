@@ -13,9 +13,8 @@ import javax.persistence.EntityManagerFactory;
 public class RegistrationMgr {
 
     private UserDAO userDAO;
-
-    public RegistrationMgr() {
-        userDAO = new UserDAOJPAImpl();
+    public RegistrationMgr(EntityManager em) {
+        userDAO = new UserDAOJPAImpl(em);
     }
 
     /**

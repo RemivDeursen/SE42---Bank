@@ -16,10 +16,9 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/>
  *         &lt;element name="time" type="{http://webService.auction/}fontysTime" minOccurs="0"/>
  *         &lt;element name="buyer" type="{http://webService.auction/}user" minOccurs="0"/>
- *         &lt;element name="item" type="{http://webService.auction/}item" minOccurs="0"/>
  *         &lt;element name="amount" type="{http://webService.auction/}money" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -34,30 +33,36 @@ import javax.xml.bind.annotation.XmlType;
     "id",
     "time",
     "buyer",
-    "item",
     "amount"
 })
 public class Bid {
 
-    protected long id;
+    protected Long id;
     protected FontysTime time;
     protected User buyer;
-    protected Item item;
     protected Money amount;
 
     /**
      * Gets the value of the id property.
      * 
+     * @return
+     *     possible object is
+     *     {@link Long }
+     *     
      */
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * Sets the value of the id property.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link Long }
+     *     
      */
-    public void setId(long value) {
+    public void setId(Long value) {
         this.id = value;
     }
 
@@ -107,30 +112,6 @@ public class Bid {
      */
     public void setBuyer(User value) {
         this.buyer = value;
-    }
-
-    /**
-     * Gets the value of the item property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Item }
-     *     
-     */
-    public Item getItem() {
-        return item;
-    }
-
-    /**
-     * Sets the value of the item property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Item }
-     *     
-     */
-    public void setItem(Item value) {
-        this.item = value;
     }
 
     /**

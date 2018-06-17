@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import wsdlAuction.Category;
 import wsdlAuction.Item;
+import wsdlAuction.Money;
 import wsdlAuction.User;
 
 import java.sql.SQLException;
@@ -12,6 +13,7 @@ import java.sql.SQLException;
 import static org.junit.Assert.*;
 
 public class SellerMgrTest {
+    WebServiceMethods webServiceMethods = new WebServiceMethods();
 
     @Before
     public void setUp() throws Exception {
@@ -25,10 +27,12 @@ public class SellerMgrTest {
      */
     @Test
     public void testOfferItem() {
+        webServiceMethods.Clean();
         String omsch = "omsch";
-        User user1 = WebServiceMethods.registerUser("xx@nl");
+        User user1 = webServiceMethods.registerUser("xx@nl");
         Category cat = new Category();
-        Item item1 = WebServiceMethods.offerItem(user1, cat, omsch);
+        cat.setDescription("cat1");
+        Item item1 = webServiceMethods.offerItem(user1, cat, omsch);
         assertEquals(omsch, item1.getDescription());
         assertNotNull(item1.getId());
     }
@@ -38,27 +42,32 @@ public class SellerMgrTest {
      */
     @Test
     public void testRevokeItem() {
+        webServiceMethods.Clean();
         String omsch = "omsch";
         String omsch2 = "omsch2";
 
 
-        User seller = registrationMgr.registerUser("sel@nl");
-        User buyer = registrationMgr.registerUser("buy@nl");
-        Category cat = new Category("cat1");
+        User seller = webServiceMethods.registerUser("sel@nl");
+        User buyer = webServiceMethods.registerUser("buy@nl");
+        Category cat = new Category();
+        cat.setDescription("cat1");
 
             // revoke before bidding
-        Item item1 = sellerMgr.offerItem(seller, cat, omsch);
-        boolean res = sellerMgr.revokeItem(item1);
+        Item item1 = webServiceMethods.offerItem(seller, cat, omsch);
+        boolean res = webServiceMethods.revokeItem(item1);
         assertTrue(res);
-        int count = auctionMgr.findItemByDescription(omsch).size();
+        int count = webServiceMethods.findItemByDescription(omsch).size();
         assertEquals(1, count);
 
             // revoke after bid has been made
-        Item item2 = sellerMgr.offerItem(seller, cat, omsch2);
-        auctionMgr.newBid(item2, buyer, new Money(100, "Euro"));
-        boolean res2 = sellerMgr.revokeItem(item2);
-        assertTrue(res2);
-        int count2 = auctionMgr.findItemByDescription(omsch2).size();
+        Item item2 = webServiceMethods.offerItem(seller, cat, omsch2);
+        Money money = new Money();
+        money.setCents(100);
+        money.setCurrency("Euro");
+        webServiceMethods.newBid(item2, buyer, money);
+        boolean res2 = webServiceMethods.revokeItem(item2);
+        assertFalse(res2);
+        int count2 = webServiceMethods.findItemByDescription(omsch2).size();
         assertEquals(1, count2);
     }
 

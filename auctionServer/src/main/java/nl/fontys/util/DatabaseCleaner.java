@@ -1,5 +1,7 @@
 package nl.fontys.util;
 
+import auction.domain.Bid;
+import auction.domain.Category;
 import auction.domain.Item;
 import auction.domain.User;
 
@@ -11,7 +13,9 @@ public class DatabaseCleaner {
 
     private static final Class<?>[] ENTITY_TYPES = {
             Item.class,
-            User.class
+            Bid.class,
+            User.class,
+            Category.class
     };
     private final EntityManager em;
 
@@ -26,7 +30,7 @@ public class DatabaseCleaner {
             deleteEntities(entityType);
         }
         em.getTransaction().commit();
-        em.close();
+        //em.close();
     }
 
     private void deleteEntities(Class<?> entityType) {

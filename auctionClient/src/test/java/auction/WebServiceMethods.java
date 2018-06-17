@@ -6,40 +6,42 @@ import wsdlAuction.*;
 import java.util.List;
 
 public class WebServiceMethods {
-    private static final AuctionService auctionService = new AuctionService();
+    private Auction port;
 
-    public static wsdlAuction.User registerUser(String email){
-        Auction port = auctionService.getAuctionPort();
+    public WebServiceMethods(){
+        AuctionService auctionService = new AuctionService();
+        port = auctionService.getAuctionPort();
+    }
+
+    public User registerUser(String email){
         return port.registerUser(email);
     }
 
-    public static wsdlAuction.User getUser(String email){
-        Auction port = auctionService.getAuctionPort();
+    public User getUser(String email){
         return port.getUser(email);
     }
 
-    public static Item getItem(Long id) {
-        Auction port = auctionService.getAuctionPort();
+    public Item getItem(Long id) {
         return port.getItem(id);
     }
 
-    public static List<Item> findItemByDescription(String description) {
-        Auction port = auctionService.getAuctionPort();
+    public List<Item> findItemByDescription(String description) {
         return port.findItemByDescription(description);
     }
 
-    public static Bid newBid(Item item, wsdlAuction.User buyer, Money amount) {
-        Auction port = auctionService.getAuctionPort();
+    public Bid newBid(Item item, User buyer, Money amount) {
         return port.newBid(item, buyer, amount);
     }
 
-    public static Item offerItem(wsdlAuction.User seller, Category cat, String description) {
-        Auction port = auctionService.getAuctionPort();
+    public Item offerItem(User seller, Category cat, String description) {
         return port.offerItem(seller, cat, description);
     }
 
-    public static boolean revokeItem(Item item){
-        Auction port = auctionService.getAuctionPort();
+    public boolean revokeItem(Item item){
         return port.revokeItem(item);
+    }
+
+    public void Clean(){
+        port.cleanUp();
     }
 }

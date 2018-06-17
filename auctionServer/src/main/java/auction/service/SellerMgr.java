@@ -12,8 +12,8 @@ public class SellerMgr {
 
     private ItemDAO itemDAO;
 
-    public SellerMgr() {
-        itemDAO = new ItemDAOJPAImpl();
+    public SellerMgr(EntityManager em) {
+        itemDAO = new ItemDAOJPAImpl(em);
     }
     /**
      * @param seller
@@ -23,9 +23,7 @@ public class SellerMgr {
      *         en met de beschrijving description
      */
     public Item offerItem(User seller, Category cat, String description) {
-        Item item = new Item(seller, cat, description);
-        itemDAO.create(item);
-        return item;
+        return itemDAO.create(new Item(seller, cat, description));
     }
     
      /**

@@ -15,8 +15,8 @@ public class AuctionMgr  {
 
     private ItemDAO itemDAO;
 
-    public AuctionMgr() {
-        itemDAO = new ItemDAOJPAImpl();
+    public AuctionMgr(EntityManager em) {
+        itemDAO = new ItemDAOJPAImpl(em);
     }
    /**
      * @param id

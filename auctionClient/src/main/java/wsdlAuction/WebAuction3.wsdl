@@ -4,17 +4,29 @@
 <xsd:import namespace="http://webService.auction/" schemaLocation="http://localhost:8080/WebAuction?xsd=1"></xsd:import>
 </xsd:schema>
 </types>
-<message name="revokeItem">
-<part name="parameters" element="tns:revokeItem"></part>
+<message name="registerUser">
+<part name="parameters" element="tns:registerUser"></part>
 </message>
-<message name="revokeItemResponse">
-<part name="parameters" element="tns:revokeItemResponse"></part>
+<message name="registerUserResponse">
+<part name="parameters" element="tns:registerUserResponse"></part>
 </message>
 <message name="getItem">
 <part name="parameters" element="tns:getItem"></part>
 </message>
 <message name="getItemResponse">
 <part name="parameters" element="tns:getItemResponse"></part>
+</message>
+<message name="cleanUp">
+<part name="parameters" element="tns:cleanUp"></part>
+</message>
+<message name="cleanUpResponse">
+<part name="parameters" element="tns:cleanUpResponse"></part>
+</message>
+<message name="revokeItem">
+<part name="parameters" element="tns:revokeItem"></part>
+</message>
+<message name="revokeItemResponse">
+<part name="parameters" element="tns:revokeItemResponse"></part>
 </message>
 <message name="getUser">
 <part name="parameters" element="tns:getUser"></part>
@@ -34,18 +46,6 @@
 <message name="newBidResponse">
 <part name="parameters" element="tns:newBidResponse"></part>
 </message>
-<message name="cleanUp">
-<part name="parameters" element="tns:cleanUp"></part>
-</message>
-<message name="cleanUpResponse">
-<part name="parameters" element="tns:cleanUpResponse"></part>
-</message>
-<message name="registerUser">
-<part name="parameters" element="tns:registerUser"></part>
-</message>
-<message name="registerUserResponse">
-<part name="parameters" element="tns:registerUserResponse"></part>
-</message>
 <message name="findItemByDescription">
 <part name="parameters" element="tns:findItemByDescription"></part>
 </message>
@@ -53,13 +53,21 @@
 <part name="parameters" element="tns:findItemByDescriptionResponse"></part>
 </message>
 <portType name="Auction">
-<operation name="revokeItem">
-<input wsam:Action="http://webService.auction/Auction/revokeItemRequest" message="tns:revokeItem"></input>
-<output wsam:Action="http://webService.auction/Auction/revokeItemResponse" message="tns:revokeItemResponse"></output>
+<operation name="registerUser">
+<input wsam:Action="http://webService.auction/Auction/registerUserRequest" message="tns:registerUser"></input>
+<output wsam:Action="http://webService.auction/Auction/registerUserResponse" message="tns:registerUserResponse"></output>
 </operation>
 <operation name="getItem">
 <input wsam:Action="http://webService.auction/Auction/getItemRequest" message="tns:getItem"></input>
 <output wsam:Action="http://webService.auction/Auction/getItemResponse" message="tns:getItemResponse"></output>
+</operation>
+<operation name="cleanUp">
+<input wsam:Action="http://webService.auction/Auction/cleanUpRequest" message="tns:cleanUp"></input>
+<output wsam:Action="http://webService.auction/Auction/cleanUpResponse" message="tns:cleanUpResponse"></output>
+</operation>
+<operation name="revokeItem">
+<input wsam:Action="http://webService.auction/Auction/revokeItemRequest" message="tns:revokeItem"></input>
+<output wsam:Action="http://webService.auction/Auction/revokeItemResponse" message="tns:revokeItemResponse"></output>
 </operation>
 <operation name="getUser">
 <input wsam:Action="http://webService.auction/Auction/getUserRequest" message="tns:getUser"></input>
@@ -73,14 +81,6 @@
 <input wsam:Action="http://webService.auction/Auction/newBidRequest" message="tns:newBid"></input>
 <output wsam:Action="http://webService.auction/Auction/newBidResponse" message="tns:newBidResponse"></output>
 </operation>
-<operation name="cleanUp">
-<input wsam:Action="http://webService.auction/Auction/cleanUpRequest" message="tns:cleanUp"></input>
-<output wsam:Action="http://webService.auction/Auction/cleanUpResponse" message="tns:cleanUpResponse"></output>
-</operation>
-<operation name="registerUser">
-<input wsam:Action="http://webService.auction/Auction/registerUserRequest" message="tns:registerUser"></input>
-<output wsam:Action="http://webService.auction/Auction/registerUserResponse" message="tns:registerUserResponse"></output>
-</operation>
 <operation name="findItemByDescription">
 <input wsam:Action="http://webService.auction/Auction/findItemByDescriptionRequest" message="tns:findItemByDescription"></input>
 <output wsam:Action="http://webService.auction/Auction/findItemByDescriptionResponse" message="tns:findItemByDescriptionResponse"></output>
@@ -88,7 +88,7 @@
 </portType>
 <binding name="AuctionPortBinding" type="tns:Auction">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"></soap:binding>
-<operation name="revokeItem">
+<operation name="registerUser">
 <soap:operation soapAction=""></soap:operation>
 <input>
 <soap:body use="literal"></soap:body>
@@ -98,6 +98,24 @@
 </output>
 </operation>
 <operation name="getItem">
+<soap:operation soapAction=""></soap:operation>
+<input>
+<soap:body use="literal"></soap:body>
+</input>
+<output>
+<soap:body use="literal"></soap:body>
+</output>
+</operation>
+<operation name="cleanUp">
+<soap:operation soapAction=""></soap:operation>
+<input>
+<soap:body use="literal"></soap:body>
+</input>
+<output>
+<soap:body use="literal"></soap:body>
+</output>
+</operation>
+<operation name="revokeItem">
 <soap:operation soapAction=""></soap:operation>
 <input>
 <soap:body use="literal"></soap:body>
@@ -125,24 +143,6 @@
 </output>
 </operation>
 <operation name="newBid">
-<soap:operation soapAction=""></soap:operation>
-<input>
-<soap:body use="literal"></soap:body>
-</input>
-<output>
-<soap:body use="literal"></soap:body>
-</output>
-</operation>
-<operation name="cleanUp">
-<soap:operation soapAction=""></soap:operation>
-<input>
-<soap:body use="literal"></soap:body>
-</input>
-<output>
-<soap:body use="literal"></soap:body>
-</output>
-</operation>
-<operation name="registerUser">
 <soap:operation soapAction=""></soap:operation>
 <input>
 <soap:body use="literal"></soap:body>

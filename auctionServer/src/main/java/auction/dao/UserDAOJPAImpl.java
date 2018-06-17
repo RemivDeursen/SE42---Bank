@@ -3,6 +3,7 @@ package auction.dao;
 import auction.domain.User;
 import nl.fontys.util.DatabaseCleaner;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,11 +13,10 @@ import javax.persistence.criteria.CriteriaQuery;
 
 public class UserDAOJPAImpl implements UserDAO {
 
-    private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("auctionPU");
     private EntityManager em;
-    DatabaseCleaner cleaner = new DatabaseCleaner(em);
 
-    public UserDAOJPAImpl() {
+    public UserDAOJPAImpl(EntityManager em) {
+        this.em = em;
     }
 
     @Override
@@ -24,19 +24,25 @@ public class UserDAOJPAImpl implements UserDAO {
         return findAll().size();
     }
 
+    @Override
     public void create(User user) {
+
+        if (findByEmail(user.getEmail()) != null) {
+            throw new EntityExistsException();
+        }
         //verbeter punt, EM lokaal aanmaken
-        em = emf.createEntityManager();
         em.getTransaction().begin();
         em.persist(user);
         em.getTransaction().commit();
-        em.close();
     }
 
+    @Override
     public void edit(User user) {
         //Implementatie interface bekijken
         try{
+            em.getTransaction().begin();
             em.merge(user);
+            em.getTransaction().commit();
         }
         catch (IllegalArgumentException e){
             e.printStackTrace();
@@ -45,19 +51,21 @@ public class UserDAOJPAImpl implements UserDAO {
 
     @Override
     public List<User> findAll() {
-        em = emf.createEntityManager();
         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
         cq.select(cq.from(User.class));
         return em.createQuery(cq).getResultList();
     }
 
+    @Override
     public void remove(User user) {
+        em.getTransaction().begin();
         em.remove(em.merge(user));
+        em.getTransaction().commit();
     }
 
+    @Override
     public User findByEmail(String email) {
-        em = emf.createEntityManager();
-        Query q = em.createNamedQuery("User.findUserByEmail", User.class);
+        Query q = em.createNamedQuery("User.findByEmail", User.class);
         q.setParameter("email", email);
         System.out.println(q.getFirstResult());
         try {
@@ -70,8 +78,6 @@ public class UserDAOJPAImpl implements UserDAO {
     }
 
     public User find(Long id) {
-        em = emf.createEntityManager();
         return em.find(User.class, id);
     }
-
 }
