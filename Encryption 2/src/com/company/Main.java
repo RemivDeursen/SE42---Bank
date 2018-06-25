@@ -23,10 +23,15 @@ public class Main {
             String result = new BufferedReader(new InputStreamReader(System.in)).readLine();
 
             if(result.equals("encrypt")){
-                Encrypt.encrypt();
+                Encrypt encrypt = new Encrypt();
+                EncryptionHolder holder = encrypt.encrypt(System.in);
+                encrypt.encryptInput(holder,System.in);
+                Encrypt.writeFile(holder,System.in);
             }
             else if(result.equals("decrypt")){
-                Decrypt.decrypt();
+                Decrypt decrypt = new Decrypt();
+                EncryptionHolder holder = decrypt.readFile(System.in);
+                decrypt.decrypt(holder, System.in);
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -16,19 +16,27 @@ import static sun.security.util.Password.readPassword;
  * Created by maxhe on 21-6-2018.
  */
 public class Decrypt {
-    public static void decrypt() throws IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidKeySpecException, NoSuchPaddingException,
+    public static EncryptionHolder readFile(InputStream filename) throws IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidKeySpecException, NoSuchPaddingException,
     InvalidArgumentException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, ClassNotFoundException {
         System.out.println("Give the name of the file you want to decrypt");
-        String result = new BufferedReader(new InputStreamReader(System.in)).readLine();
+        String result = new BufferedReader(new InputStreamReader(filename)).readLine();
 
         ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(result));
         byte[] salt = (byte[]) objectInputStream.readObject();
         byte[] encryptMessage = (byte[]) objectInputStream.readObject();
         objectInputStream.close();
 
-        PBEParameterSpec pbeParameterSpec = new PBEParameterSpec(salt,25);
+        EncryptionHolder holder = new EncryptionHolder();
+        holder.setCiphertext(encryptMessage);
+        holder.setSalt(salt);
+
+        return holder;
+    }
+
+    public static String decrypt(EncryptionHolder holder, InputStream stream) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+        PBEParameterSpec pbeParameterSpec = new PBEParameterSpec(holder.getSalt(),25);
         System.out.println("What's your password?");
-        PBEKeySpec pbeKeySpec = new PBEKeySpec(readPassword(System.in));
+        PBEKeySpec pbeKeySpec = new PBEKeySpec(readPassword(stream));
 
         SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance("PBEWithMD5AndDES");
         SecretKey secretKey = secretKeyFactory.generateSecret(pbeKeySpec);
@@ -36,7 +44,9 @@ public class Decrypt {
         Cipher cipher = Cipher.getInstance("PBEWithMD5AndDES");
         cipher.init(Cipher.DECRYPT_MODE,secretKey,pbeParameterSpec);
 
-        byte[] message = cipher.doFinal(encryptMessage);
-        System.out.println(new String(message,"UTF-8"));
+        byte[] message = cipher.doFinal(holder.getCiphertext());
+        System.out.println("Output: " + new String(message,"UTF-8"));
+
+        return new String(message,"UTF-8");
     }
 }

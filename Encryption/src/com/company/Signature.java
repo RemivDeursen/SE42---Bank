@@ -16,7 +16,10 @@ import java.security.SignatureException;
 public class Signature {
 
     public static void main (String[] args){
+        createSignature(System.in);
+    }
 
+    public static String createSignature(InputStream fileName){
         PrivateKey privateKey = GenerateKey.getPrivateKey();
 
         String input = getInput();
@@ -28,7 +31,7 @@ public class Signature {
 
             byte[] signatureBytes = signature.sign();
 
-            String name = new BufferedReader(new InputStreamReader(System.in)).readLine();
+            String name = new BufferedReader(new InputStreamReader(fileName)).readLine();
             File signatureFile = new File(String.format("INPUT(SignedBy%s)",name.replace(" ","")));
             signatureFile.createNewFile();
 
@@ -38,11 +41,13 @@ public class Signature {
             objectOutputStream.writeObject(signatureBytes);
             objectOutputStream.writeObject(input);
             objectOutputStream.close();
+            return signatureFile.toString();
         }
 
         catch (NoSuchAlgorithmException | InvalidKeyException | SignatureException | IOException e){
             e.printStackTrace();
         }
+        return null;
     }
 
     public static String getInput(){

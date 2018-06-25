@@ -10,10 +10,14 @@ import java.security.Signature;
 public class Verify {
 
     public static void main(String[] args){
+        verifyFile(System.in);
+    }
+
+    public static boolean verifyFile(InputStream stream){
         boolean validFile = false;
 
         try {
-            String name = new BufferedReader(new InputStreamReader(System.in)).readLine();
+            String name = new BufferedReader(new InputStreamReader(stream)).readLine();
 
             ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(String.format("INPUT(SignedBy%s)",name.replace(" ",""))));
 
@@ -35,9 +39,8 @@ public class Verify {
             }
 
         } catch (IOException | ClassNotFoundException | NoSuchAlgorithmException | InvalidKeyException | SignatureException e) {
-            e.printStackTrace();
+            return false;
         }
-
-
+        return validFile;
     }
 }
