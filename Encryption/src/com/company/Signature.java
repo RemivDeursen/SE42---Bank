@@ -26,8 +26,9 @@ public class Signature {
 
         try {
 
-            java.security.Signature signature = java.security.Signature.getInstance("SHA1withRSA");
+            java.security.Signature signature = java.security.Signature.getInstance("SHA256withRSA");
             signature.initSign(privateKey);
+            signature.update(input.getBytes());
 
             byte[] signatureBytes = signature.sign();
 

@@ -26,7 +26,7 @@ public class Verify {
 
             String output = (String) objectInputStream.readObject();
 
-            Signature signature = Signature.getInstance("SHA1withRSA");
+            Signature signature = Signature.getInstance("SHA256withRSA");
             signature.initVerify(GenerateKey.getPublicKey());
             validFile = signature.verify(signatureBytes);
 
@@ -39,6 +39,7 @@ public class Verify {
             }
 
         } catch (IOException | ClassNotFoundException | NoSuchAlgorithmException | InvalidKeyException | SignatureException e) {
+            e.printStackTrace();
             return false;
         }
         return validFile;
