@@ -6,6 +6,7 @@
         <option value="$PROJECT_DIR$/SE42 auction/auction/pom.xml" />
         <option value="$PROJECT_DIR$/auctionClient/pom.xml" />
         <option value="$PROJECT_DIR$/auctionServer/pom.xml" />
+        <option value="$PROJECT_DIR$/bank/pom.xml" />
       </list>
     </option>
   </component>

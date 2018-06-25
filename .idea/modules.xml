@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/SE42---Bank.iml" filepath="$PROJECT_DIR$/.idea/SE42---Bank.iml" />
       <module fileurl="file://$PROJECT_DIR$/auctionServer/auction.iml" filepath="$PROJECT_DIR$/auctionServer/auction.iml" />
       <module fileurl="file://$PROJECT_DIR$/auctionClient/auctionClient.iml" filepath="$PROJECT_DIR$/auctionClient/auctionClient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bank/bank.iml" filepath="$PROJECT_DIR$/bank/bank.iml" />
     </modules>
   </component>
 </project>

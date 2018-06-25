@@ -8,11 +8,13 @@
         <outputRelativeToContentRoot value="true" />
         <module name="auction" />
         <module name="auctionClient" />
+        <module name="bank" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="auction" target="1.8" />
       <module name="auctionClient" target="1.5" />
+      <module name="bank" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

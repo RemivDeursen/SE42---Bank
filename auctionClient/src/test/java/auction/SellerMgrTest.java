@@ -1,8 +1,6 @@
 package auction;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import wsdlAuction.Category;
 import wsdlAuction.Item;
 import wsdlAuction.Money;
@@ -10,7 +8,7 @@ import wsdlAuction.User;
 
 import java.sql.SQLException;
 
-import static org.junit.Assert.*;
+import static junit.framework.TestCase.*;
 
 public class SellerMgrTest {
     WebServiceMethods webServiceMethods = new WebServiceMethods();

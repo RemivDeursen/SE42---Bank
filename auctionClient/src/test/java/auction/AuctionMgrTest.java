@@ -30,6 +30,7 @@ public class AuctionMgrTest {
         String omsch = "omsch";
 
         User seller1 = webServiceMethods.registerUser(email);
+        //Geen modellen aanmaken in de frontend
         Category cat = new Category();
         cat.setDescription("cat2");
         Item item1 = webServiceMethods.offerItem(seller1, cat, omsch);
